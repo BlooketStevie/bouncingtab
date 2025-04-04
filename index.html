@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>System Check</title>
+  <style>
+    body {
+      background: black;
+      color: lime;
+      font-family: monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      background-color: lime;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div>Click to continue system check...</div>
+  <button onclick="triggerPrank()">Continue</button>
+
+  <script>
+    function triggerPrank() {
+      // Simulate "minimized" or finished state
+      document.body.innerHTML = "<h1 style='color:gray;'>System Idle</h1>";
+
+      // Open chaotic popup
+      const prankWin = window.open(
+        'bouncer.html',
+        'popup',
+        'width=300,height=200,left=100,top=100'
+      );
+    }
+  </script>
+</body>
+</html>

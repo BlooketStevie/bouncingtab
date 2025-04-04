@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FBI SYSTEM ALERT</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: monospace;
+      color: white;
+      background: red;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🚨 SYSTEM BREACH 🚨</h1>
+  <audio id="beep" src="https://www.soundjay.com/button/beep-07.wav" preload="auto" autoplay loop></audio>
+
+  <script>
+    // Flash background
+    setInterval(() => {
+      document.body.style.backgroundColor =
+        '#' + Math.floor(Math.random()*16777215).toString(16);
+    }, 100);
+
+    // Bounce window around the screen
+    let x = 100, y = 100, dx = 20, dy = 20;
+
+    function bounce() {
+      try {
+        window.moveTo(x, y);
+      } catch (e) {
+        // Blocked by browser? Ignore
+      }
+
+      x += dx;
+      y += dy;
+
+      if (x < 0 || x > screen.availWidth - window.outerWidth) dx *= -1;
+      if (y < 0 || y > screen.availHeight - window.outerHeight) dy *= -1;
+
+      setTimeout(bounce, 50);
+    }
+
+    bounce();
+  </script>
+</body>
+</html>
