@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>System Check</title>
   <style>
     body {
@@ -13,35 +13,41 @@
       align-items: center;
       height: 100vh;
       flex-direction: column;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
     }
 
     button {
       padding: 1rem 2rem;
       font-size: 1.5rem;
-      background-color: lime;
+      background: lime;
       color: black;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div>Click to continue system check...</div>
-  <button onclick="triggerPrank()">Continue</button>
+  <h1>System Check In Progress...</h1>
+  <button onclick="openBouncer()">Click to Test</button>
 
   <script>
-    function triggerPrank() {
-      // Simulate "minimized" or finished state
-      document.body.innerHTML = "<h1 style='color:gray;'>Bad Idea.</h1>";
+    // Open bouncer after 3 seconds automatically
+    setTimeout(() => {
+      openBouncer();
+    }, 3000);
 
-      // Open chaotic popup
-      const prankWin = window.open(
-        'bouncer.html',
-        'popup',
-        'width=300,height=200,left=100,top=100'
-      );
+    // Open a new bouncer window
+    function openBouncer() {
+      window.open('bouncer.html', 'bouncer', 'width=300,height=200,left=100,top=100');
     }
+
+    // Add event listener to open more bouncers on click anywhere
+    document.body.addEventListener('click', openBouncer);
   </script>
 </body>
 </html>
