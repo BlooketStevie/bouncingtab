@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🚨 SYSTEM ALERT 🚨</title>
+  <title>🚨 SYSTEM BREACH 🚨</title>
   <style>
     body {
       margin: 0;
@@ -15,7 +15,7 @@
       height: 100vh;
       flex-direction: column;
       text-align: center;
-      animation: flash 0.5s infinite;
+      animation: flash 0.2s infinite;
     }
 
     h1 {
@@ -31,18 +31,38 @@
   </style>
 </head>
 <body>
-  <h1>🚨 BEEPING ALERT 🚨<br>Click to stop</h1>
+  <h1>🚨 SYSTEM BREACH 🚨</h1>
   <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto" autoplay loop></audio>
 
   <script>
     const beep = document.getElementById('beep');
-    beep.volume = 1.0;
+    beep.volume = 1.0;  // Max volume
 
-    // Allow user to stop it
+    // Fast window bounce setup
+    let x = 100, y = 100, dx = 40, dy = 30;
+
+    function bounce() {
+      try {
+        window.moveTo(x, y);  // Move the window
+      } catch (e) {
+        // If moveTo is blocked, just continue
+      }
+
+      x += dx;
+      y += dy;
+
+      // Reverse direction when hitting the screen edges
+      if (x < 0 || x > screen.availWidth - window.outerWidth) dx *= -1;
+      if (y < 0 || y > screen.availHeight - window.outerHeight) dy *= -1;
+
+      setTimeout(bounce, 25);  // Faster bouncing speed
+    }
+
+    bounce();  // Start bouncing
+
+    // Open more bouncers on any click
     document.body.addEventListener('click', () => {
-      beep.pause();
-      beep.currentTime = 0;
-      document.body.innerHTML = "<h1>✅ Beep Stopped</h1>";
+      window.open('bouncer.html', 'bouncer', 'width=300,height=200,left=100,top=100');
     });
   </script>
 </body>
