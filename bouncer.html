@@ -15,11 +15,11 @@
             height: 100vh;
             flex-direction: column;
             text-align: center;
-            animation: flash 0.2s infinite;
+            animation: flash 0.1s infinite;
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 3rem;
             margin: 0;
         }
 
@@ -32,18 +32,28 @@
 </head>
 <body>
     <h1>🚨 SYSTEM BREACH 🚨</h1>
-    <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto" autoplay loop></audio>
+    <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto" loop></audio>
 
     <script>
         const beep = document.getElementById('beep');
         beep.volume = 1.0;
 
-        let x = 100, y = 100, dx = 40, dy = 30;
+        let beepStarted = false;
+
+        document.body.addEventListener('click', () => {
+            if (!beepStarted) {
+                beep.play();
+                beepStarted = true;
+            }
+        });
+
+        let x = 100, y = 100, dx = 60, dy = 50; //Increased speed for faster bounce
 
         function bounce() {
             try {
                 window.moveTo(x, y);
             } catch (e) {
+                // Handle potential errors (e.g., browser security restrictions)
             }
 
             x += dx;
@@ -52,14 +62,10 @@
             if (x < 0 || x > screen.availWidth - window.outerWidth) dx *= -1;
             if (y < 0 || y > screen.availHeight - window.outerHeight) dy *= -1;
 
-            setTimeout(bounce, 25);
+            setTimeout(bounce, 15); //Decreased delay for faster bounce
         }
 
         bounce();
-
-        document.body.addEventListener('click', () => {
-            window.open(window.location.href, '_blank', 'width=300,height=200,left=100,top=100');
-        });
     </script>
 </body>
 </html>
