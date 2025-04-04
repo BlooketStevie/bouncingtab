@@ -1,69 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🚨 SYSTEM BREACH 🚨</title>
-  <style>
-    body {
-      margin: 0;
-      background: black;
-      color: red;
-      font-family: monospace;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      flex-direction: column;
-      text-align: center;
-      animation: flash 0.2s infinite;
-    }
+    <meta charset="UTF-8">
+    <title>🚨 SYSTEM BREACH 🚨</title>
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            color: red;
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            animation: flash 0.2s infinite;
+        }
 
-    h1 {
-      font-size: 2rem;
-      margin: 0;
-    }
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
 
-    @keyframes flash {
-      0% { background-color: black; color: red; }
-      50% { background-color: red; color: black; }
-      100% { background-color: black; color: red; }
-    }
-  </style>
+        @keyframes flash {
+            0% { background-color: black; color: red; }
+            50% { background-color: red; color: black; }
+            100% { background-color: black; color: red; }
+        }
+    </style>
 </head>
 <body>
-  <h1>🚨 SYSTEM BREACH 🚨</h1>
-  <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto" autoplay loop></audio>
+    <h1>🚨 SYSTEM BREACH 🚨</h1>
+    <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto" autoplay loop></audio>
 
-  <script>
-    const beep = document.getElementById('beep');
-    beep.volume = 1.0;  // Max volume
+    <script>
+        const beep = document.getElementById('beep');
+        beep.volume = 1.0;
 
-    // Fast window bounce setup
-    let x = 100, y = 100, dx = 40, dy = 30;
+        let x = 100, y = 100, dx = 40, dy = 30;
 
-    function bounce() {
-      try {
-        window.moveTo(x, y);  // Move the window
-      } catch (e) {
-        // If moveTo is blocked, just continue
-      }
+        function bounce() {
+            try {
+                window.moveTo(x, y);
+            } catch (e) {
+            }
 
-      x += dx;
-      y += dy;
+            x += dx;
+            y += dy;
 
-      // Reverse direction when hitting the screen edges
-      if (x < 0 || x > screen.availWidth - window.outerWidth) dx *= -1;
-      if (y < 0 || y > screen.availHeight - window.outerHeight) dy *= -1;
+            if (x < 0 || x > screen.availWidth - window.outerWidth) dx *= -1;
+            if (y < 0 || y > screen.availHeight - window.outerHeight) dy *= -1;
 
-      setTimeout(bounce, 25);  // Faster bouncing speed
-    }
+            setTimeout(bounce, 25);
+        }
 
-    bounce();  // Start bouncing
+        bounce();
 
-    // Open more bouncers on any click
-    document.body.addEventListener('click', () => {
-      window.open('bouncer.html', 'bouncer', 'width=300,height=200,left=100,top=100');
-    });
-  </script>
+        document.body.addEventListener('click', () => {
+            window.open(window.location.href, '_blank', 'width=300,height=200,left=100,top=100');
+        });
+    </script>
 </body>
 </html>
