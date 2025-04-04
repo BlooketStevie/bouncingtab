@@ -2,54 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FBI SYSTEM ALERT</title>
+  <title>🚨 SYSTEM ALERT 🚨</title>
   <style>
     body {
       margin: 0;
+      background: black;
+      color: red;
       font-family: monospace;
-      color: white;
-      background: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
       text-align: center;
-      overflow: hidden;
+      animation: flash 0.5s infinite;
     }
 
     h1 {
-      margin-top: 40px;
-      font-size: 1.5rem;
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    @keyframes flash {
+      0% { background-color: black; color: red; }
+      50% { background-color: red; color: black; }
+      100% { background-color: black; color: red; }
     }
   </style>
 </head>
 <body>
-  <h1>🚨 SYSTEM BREACH 🚨</h1>
-  <audio id="beep" src="https://www.soundjay.com/button/beep-07.wav" preload="auto" autoplay loop></audio>
+  <h1>🚨 BEEPING ALERT 🚨<br>Click to stop</h1>
+  <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto" autoplay loop></audio>
 
   <script>
-    // Flash background
-    setInterval(() => {
-      document.body.style.backgroundColor =
-        '#' + Math.floor(Math.random()*16777215).toString(16);
-    }, 100);
+    const beep = document.getElementById('beep');
+    beep.volume = 1.0;
 
-    // Bounce window around the screen
-    let x = 100, y = 100, dx = 20, dy = 20;
-
-    function bounce() {
-      try {
-        window.moveTo(x, y);
-      } catch (e) {
-        // Blocked by browser? Ignore
-      }
-
-      x += dx;
-      y += dy;
-
-      if (x < 0 || x > screen.availWidth - window.outerWidth) dx *= -1;
-      if (y < 0 || y > screen.availHeight - window.outerHeight) dy *= -1;
-
-      setTimeout(bounce, 50);
-    }
-
-    bounce();
+    // Allow user to stop it
+    document.body.addEventListener('click', () => {
+      beep.pause();
+      beep.currentTime = 0;
+      document.body.innerHTML = "<h1>✅ Beep Stopped</h1>";
+    });
   </script>
 </body>
 </html>
