@@ -1,61 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>System Check</title>
-  <style>
-    body {
-      background: black;
-      color: lime;
-      font-family: monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Percentage Calculator</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background: #f0f2f5;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding-top: 50px;
+}
 
-    h1 {
-      font-size: 2rem;
-    }
+.calculator {
+background: white;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+width: 300px;
+text-align: center;
+}
 
-    button {
-      padding: 1rem 2rem;
-      font-size: 1.5rem;
-      background: lime;
-      color: black;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-  </style>
+.calculator h2 {
+margin-bottom: 20px;
+}
+
+input {
+width: 80%;
+padding: 10px;
+margin: 10px 0;
+font-size: 16px;
+}
+
+button {
+background-color: #4CAF50;
+color: white;
+padding: 10px 20px;
+border: none;
+margin-top: 10px;
+font-size: 16px;
+cursor: pointer;
+border-radius: 5px;
+}
+
+button:hover {
+background-color: #45a049;
+}
+
+.result {
+margin-top: 20px;
+font-size: 18px;
+}
+
+.error {
+color: red;
+margin-top: 10px;
+}
+</style>
 </head>
 <body>
-  <h1>System Check In Progress...</h1>
-  <button onclick="openBouncer()">Click to Test</button>
 
-  <script>
-    // Open bouncer after 3 seconds automatically
-    setTimeout(() => {
-      openBouncer();
-    }, 3000);
+<div class="calculator">
+<h2>Percentage Calculator</h2>
+<input type="number" id="a" placeholder="A (Broken Bones)" step="any">
+<input type="number" id="b" placeholder="B (Non-Broken Bones)" step="any">
+<button onclick="calculate()">Calculate</button>
+<div class="result" id="result"></div>
+<div class="error" id="error"></div>
+</div>
 
-    // Open a new bouncer window
-    function openBouncer() {
-      window.open('bouncer.html', 'bouncer', 'width=300,height=200,left=100,top=100');
-    }
+<script>
+function calculate() {
+const a = parseFloat(document.getElementById("a").value);
+const b = parseFloat(document.getElementById("b").value);
+const result = document.getElementById("result");
+const error = document.getElementById("error");
 
-    // Add event listener to open more bouncers on click anywhere
-    document.body.addEventListener('click', openBouncer);
+result.innerHTML = "";
+error.innerHTML = "";
 
-    // Continuously spawn windows on user interaction
-    function continuousSpawning() {
-      setInterval(openBouncer, 100); // Open a new bouncer every 100 milliseconds
-    }
+if (isNaN(a) || isNaN(b)) {
+error.innerText = "Please enter valid numbers for both A and B.";
+return;
+}
 
-    // Start continuous spawning after the main page is loaded
-    window.onload = continuousSpawning;
-  </script>
+const total = a + b;
+if (total === 0) {
+error.innerText = "The total cannot be zero.";
+return;
+}
+
+const brokenPercent = ((a / total) * 100).toFixed(2);
+const nonBrokenPercent = ((b / total) * 100).toFixed(2);
+
+result.innerHTML = `Broken Percent: ${brokenPercent}%<br>Non-Broken Percent: ${nonBrokenPercent}%`;
+
+// Optional: Clear input fields after calculation
+document.getElementById("a").value = "";
+document.getElementById("b").value = "";
+}
+</script>
+
 </body>
 </html>
