@@ -85,8 +85,8 @@ errorDiv.innerText = "Please enter some numbers.";
 return;
 }
 
-// Remove commas and split by spaces
-let cleanedInput = input.replace(/,/g, '').split(/\s+/);
+// Replace commas with spaces, then split by spaces.
+let cleanedInput = input.replace(/,/g, ' ').split(/\s+/).filter(item => item !== '');
 
 try {
 let numbers = cleanedInput.map(num => parseFloat(num));
