@@ -1,81 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8th Grade</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<title>Total & Average Calculator</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background: #eef1f5;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding-top: 50px;
+}
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
-        }
+.calculator {
+background: white;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+width: 350px;
+text-align: center;
+}
 
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 50px 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            width: 80%;
-            max-width: 600px;
-        }
+h2 {
+margin-bottom: 20px;
+}
 
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            color: #333;
-        }
+input {
+width: 90%;
+padding: 10px;
+font-size: 16px;
+margin-top: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+button {
+margin-top: 15px;
+padding: 10px 20px;
+background-color: #4285f4;
+color: white;
+border: none;
+font-size: 16px;
+border-radius: 5px;
+cursor: pointer;
+}
 
-        li {
-            margin: 20px 0;
-        }
+button:hover {
+background-color: #357ae8;
+}
 
-        a {
-            font-size: 1.5em;
-            text-decoration: none;
-            color: white;
-            background-color: #2575fc;
-            padding: 15px 25px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+.result {
+margin-top: 20px;
+font-size: 18px;
+}
 
-        a:hover {
-            background-color: #6a11cb;
-            transform: scale(1.1);
-        }
-
-        a:active {
-            transform: scale(1);
-        }
-    </style>
+.error {
+color: red;
+margin-top: 10px;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to 8th Grade</h1>
-        <ul>
-            <li><a href="/king">Mrs. King</a></li>
-            <li><a href="/weld">Mrs. Weld</a></li>
-            <li><a href="/parsons">Mrs. Parsons</a></li>
-        </ul>
-    </div>
+
+<div class="calculator">
+<h2>Total & Average Calculator</h2>
+<input type="text" id="numbers" placeholder="Enter numbers (e.g., 12.5, 43, 66.2)">
+<button onclick="calculate()">Calculate</button>
+<div class="result" id="result"></div>
+<div class="error" id="error"></div>
+</div>
+
+<script>
+function calculate() {
+const input = document.getElementById("numbers").value;
+const resultDiv = document.getElementById("result");
+const errorDiv = document.getElementById("error");
+
+resultDiv.innerHTML = "";
+errorDiv.innerHTML = "";
+
+if (!input.trim()) {
+errorDiv.innerText = "Please enter some numbers.";
+return;
+}
+
+// Remove commas and split by spaces
+let cleanedInput = input.replace(/,/g, '').split(/\s+/);
+
+try {
+let numbers = cleanedInput.map(num => parseFloat(num));
+if (numbers.some(isNaN)) throw "Invalid number found";
+
+let total = numbers.reduce((a, b) => a + b, 0);
+let average = total / numbers.length;
+
+resultDiv.innerHTML = `Total: ${total.toFixed(2)}<br>Average: ${average.toFixed(2)}`;
+document.getElementById("numbers").value = "";
+
+} catch (err) {
+errorDiv.innerText = "Please enter only valid numbers.";
+}
+}
+</script>
+
 </body>
 </html>
