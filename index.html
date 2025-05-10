@@ -2,84 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Armorel Homework Share</title>
-  <script type="module" src="app.js" defer></script>
-  <script type="module" src="data.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
 </head>
-<body class="bg-gradient-to-br from-purple-100 to-blue-100 min-h-screen p-4">
-  <header class="flex justify-between items-center mb-8">
-    <h1 class="text-4xl font-bold text-purple-700">Armorel Homework Share</h1>
-    <div class="space-x-4">
-      <button id="loginBtn" class="border px-4 py-2 rounded">Login</button>
-      <button id="signupBtn" class="bg-purple-600 text-white px-4 py-2 rounded">Sign Up</button>
-    </div>
-  </header>
+<body class="bg-gray-100 p-4">
+  <div class="max-w-xl mx-auto">
+    <h1 class="text-3xl font-bold mb-4 text-purple-700">Armorel Homework Share</h1>
 
-  <div id="adminDashboard" class="hidden mb-8 p-4 bg-yellow-100 border border-yellow-400 rounded shadow">
-    <h2 class="text-xl font-bold text-yellow-800 mb-2">Admin Dashboard</h2>
-    <div>
-      <button id="addAnnouncementBtn" class="mb-2 px-3 py-1 bg-yellow-500 text-white rounded">+ Add Announcement</button>
-      <ul id="announcementList" class="space-y-1"></ul>
-    </div>
-  </div>
-
-  <main id="contentArea">
-    <div id="teacherList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"></div>
-    <div id="classList" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"></div>
-    <div id="classDetail" class="hidden max-w-xl mx-auto text-center"></div>
-  </main>
-
-  <!-- Announcements Floating Box -->
-  <div class="fixed bottom-4 left-4 w-64 bg-white rounded-lg shadow-lg p-4 border border-gray-200">
-    <h3 class="text-lg font-bold text-purple-700 mb-2">📢 Announcements</h3>
-    <ul id="announcementPopup" class="list-disc list-inside text-sm text-gray-700 space-y-1"></ul>
-  </div>
-
-  <!-- Login Modal -->
-  <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-    <form id="loginForm" class="bg-white p-6 rounded shadow space-y-4">
-      <h2 class="text-xl font-semibold">Login</h2>
-      <input name="username" type="text" placeholder="Username" required class="w-full border p-2 rounded" />
-      <input name="password" type="password" placeholder="Password" required class="w-full border p-2 rounded" />
-      <div class="flex justify-between">
-        <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded">Login</button>
-        <button type="button" id="closeLogin" class="text-gray-500">Cancel</button>
+    <div id="auth-section" class="space-y-4 mb-8">
+      <input id="email" type="email" placeholder="Email" class="border p-2 w-full" required />
+      <input id="password" type="password" placeholder="Password" class="border p-2 w-full" required />
+      <div class="flex space-x-2">
+        <button onclick="login()" class="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
+        <button onclick="signup()" class="bg-green-500 text-white px-4 py-2 rounded">Sign Up</button>
       </div>
-    </form>
+      <p id="user-info" class="text-sm text-gray-600"></p>
+    </div>
+
+    <div id="upload-section" class="hidden space-y-4 mb-6">
+      <form id="upload-form" class="space-y-2">
+        <input type="file" id="fileInput" class="block w-full" required />
+        <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded">Upload Homework</button>
+      </form>
+    </div>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">📁 Uploaded Homework</h2>
+    <ul id="fileList" class="space-y-1 text-blue-700 underline"></ul>
   </div>
 
-  <!-- Signup Modal -->
-  <div id="signupModal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-    <form id="signupForm" class="bg-white p-6 rounded shadow space-y-4">
-      <h2 class="text-xl font-semibold">Sign Up</h2>
-      <input name="username" type="text" placeholder="Username" required class="w-full border p-2 rounded" />
-      <input name="password" type="password" placeholder="Password" required class="w-full border p-2 rounded" />
-      <div class="flex justify-between">
-        <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded">Create Account</button>
-        <button type="button" id="closeSignup" class="text-gray-500">Cancel</button>
-      </div>
-    </form>
-  </div>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
-  <!-- Firebase App -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyD-f-UF3nM-R1TSMegY7lW9szHoS7f3WJI",
-      authDomain: "armorel-3e2bf.firebaseapp.com",
-      projectId: "armorel-3e2bf",
-      storageBucket: "armorel-3e2bf.firebasestorage.app",
-      messagingSenderId: "899798221811",
-      appId: "1:899798221811:web:f90cba6fb4e52f496f0886",
-      measurementId: "G-PXTNXCTHRG"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  </script>
+  <!-- Your scripts -->
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
