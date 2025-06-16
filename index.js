@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 const path = require("path");
 
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/your_webhook_id/your_webhook_token";
+const DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384059457054572564/-d1jkEYCaQjbBga4Unbalu8AKOc7OsYYK6__vGUHGuheXBeTZE2_1uPp3YLDEaaf42z6";
 
 exports.handler = async function(event, context) {
   // Get visitor IP
